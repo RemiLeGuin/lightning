@@ -1,0 +1,14 @@
+<template>
+    <lightning-quick-action-panel header="Update Opportunity and Account">
+        <template if:true={opportunity}>
+            <lightning-input type="number" formatter="currency" label="Amount" value={opportunityAmount} class="slds-var-m-bottom_x-small" onchange={handleAmountChange}></lightning-input>
+        </template>
+        <template if:true={account}>
+            <lightning-combobox name="account-rating" label="Rating" value={accountRating} options={accountRatingPicklistValues} onchange={handleRatingChange} dropdown-alignment="auto"></lightning-combobox>
+        </template>
+        <div slot="footer">
+            <lightning-button variant="neutral" label="Cancel" onclick={handleCancel}></lightning-button>
+            <lightning-button variant="brand" label="Save" class="slds-var-m-left_x-small" onclick={handleSubmit}></lightning-button>
+        </div>
+    </lightning-quick-action-panel>
+</template>
