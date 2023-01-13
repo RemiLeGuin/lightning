@@ -68,50 +68,35 @@ export default class UpdateOpportunityAndAccount extends LightningElement {
         this.dispatchEvent(new CloseActionScreenEvent());
     }
 
-    handleSubmit() {
-        this.updateOpportunity();
-        this.updateAccount();
+    async handleSubmit() {
+        try {
+            await this.updateOpportunity();
+            await this.updateAccount();
+            this.dispatchEvent(new CloseActionScreenEvent());
+        } catch (error) {
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: ERROR_LABEL,
+                    message: error.body.message,
+                    variant: 'error'
+                })
+            );
+        }
     }
 
     updateOpportunity() {
-        const opportunityFields = {};
-        opportunityFields[OPPORTUNITY_ID_FIELD.fieldApiName] = this.recordId;
-        opportunityFields[OPPORTUNITY_AMOUNT_FIELD.fieldApiName] = this._newOpportunityAmount;
-        const opportunityInput = { fields: opportunityFields };
-        updateRecord(opportunityInput)
-            .then(() => {
-                this.dispatchEvent(new CloseActionScreenEvent());
-            })
-            .catch(error => {
-                this.dispatchEvent(
-                    new ShowToastEvent({
-                        title: ERROR_LABEL,
-                        message: error.body.message,
-                        variant: 'error'
-                    })
-                );
-                this.dispatchEvent(new CloseActionScreenEvent());
-            });
+        const fields = {};
+        fields[OPPORTUNITY_ID_FIELD.fieldApiName] = this.recordId;
+        fields[OPPORTUNITY_AMOUNT_FIELD.fieldApiName] = this._newOpportunityAmount;
+        const recordInput = { fields };
+        updateRecord(recordInput);
     };
 
     updateAccount() {
-        const accountFields = {};
-        accountFields[ACCOUNT_ID_FIELD.fieldApiName] = this.opportunityAccountId;
-        accountFields[ACCOUNT_RATING_FIELD.fieldApiName] = this._newAccountRating;
-        const accountInput = { fields: accountFields };
-        updateRecord(accountInput)
-            .then(() => {
-                this.dispatchEvent(new CloseActionScreenEvent());
-            })
-            .catch(error => {
-                this.dispatchEvent(
-                    new ShowToastEvent({
-                        title: ERROR_LABEL,
-                        message: error.body.message,
-                        variant: 'error'
-                    })
-                );
-                this.dispatchEvent(new CloseActionScreenEvent());
-            });
+        const fields = {};
+        fields[ACCOUNT_ID_FIELD.fieldApiName] = this.opportunityAccountId;
+        fields[ACCOUNT_RATING_FIELD.fieldApiName] = this._newAccountRating;
+        const recordInput = { fields };
+        updateRecord(recordInput);
     };
 }
