@@ -1,0 +1,27 @@
+{
+  "name": "lightning",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:unit": "sfdx-lwc-jest",
+    "test:unit:debug": "sfdx-lwc-jest --debug",
+    "test:unit:watch": "sfdx-lwc-jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RemiLeGuin/lightning.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RemiLeGuin/lightning/issues"
+  },
+  "homepage": "https://github.com/RemiLeGuin/lightning#readme",
+  "devDependencies": {
+    "@salesforce/sfdx-lwc-jest": "^1.2.1",
+    "prettier": "2.8.3",
+    "prettier-plugin-apex": "1.12.0"
+  }
+}
